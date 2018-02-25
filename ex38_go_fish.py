@@ -126,7 +126,7 @@ def turn(game_deck, player_list, hand_list, current_player):
             print(four_of_a_kind_check(hand_list[current_player]))
             if four_of_a_kind_check(hand_list[current_player]):
                 pass
-            else:
+            else: 
                 pass
             z = 2
             # draw a card from the game deck
