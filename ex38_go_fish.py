@@ -1,4 +1,5 @@
-import random, collections
+import random
+import collections
 
 
 def make_new_deck():
@@ -27,16 +28,16 @@ def card_value(card_number):
     return card_value_options[card_value]
 
 
-def card_ID(card_number):
+def card_id(card_number):
     return card_value(card_number) + " of " + card_suit(card_number)
 
 
-def hand_ID(cardlist):
+def hand_id(cardlist):
     """return card IDs of a list of cards"""
-    hand_ID_list = []
+    hand_id_list = []
     for card in cardlist:
-        hand_ID_list.append(card_ID(card))
-    return hand_ID_list
+        hand_id_list.append(card_id(card))
+    return hand_id_list
 
 
 def four_of_a_kind_check(cardlist):
@@ -44,15 +45,21 @@ def four_of_a_kind_check(cardlist):
     card_value_list = []
     for item in cardlist:   # determine card values for cards in cardlist and put into card_value_list
         card_value_list.append(card_value(item))
-    # print(card_value_list)
     counter = collections.Counter(card_value_list)
-    print(counter)
     for key in counter.keys():
         if counter[key] == 4:
-            print("Holy shit four of a kind")
             return key
         else:
             pass
+    return False
+
+
+def card_value_check(cardlist, value):
+    """check if a cardlist has a card of that specific value"""
+    for card in cardlist:
+        if card_value(card) == value:
+            print(f"You have a {card_value(card)} which is a {card}!!!! Card value check gotcha")
+            return True
     return False
 
 
@@ -74,38 +81,46 @@ def start_game(num_players):
     print(hand_list)
     for player in range(0, num_players):
         hand_list[player] = [None]
-    print("\nHand list before any assignment is:", end=" ")
-    print(hand_list)
+    # print("\nHand list before any assignment is:", end=" ")
+    # print(hand_list)
     for player in range(0, num_players):  # assign player_list
         player_list.append("Player " + player.__str__())
     # print("Player list is: ", player_list)
     for player in range(0, num_players):  # assign hands
-        print("\nAssigning values for player {}".format(player))
+        # print("\nAssigning values for player {}".format(player))
         game_deck, hand_list = deal(game_deck, hand_list, player, 5)
-        print(f"Hand list is {hand_list}")
+        # print(f"Hand list is {hand_list}")
         # print(hand_list[player])
         # print(hand_list)
     print(player_list)
+    print(card_value_check(hand_list[0], '2'))
     print(hand_list)
+
+
+def turn():
+    """prompt for another player and a card value. perform card value check. if true, grab card and go again
+    if false, deal 1 card from deck
+    check deck to see i9f no cards left. """
+    # print(game_deck)
 
 #
 # deck1 = make_new_deck()
-# print(card_ID(5))
+# print(card_id(5))
 # #
 # print(deck1)
 # #
 # for card in deck1:
-#     print("Your card is", card_ID(deck1[card]))
+#     print("Your card is", card_id(deck1[card]))
 
 # hand_list1 = [[None]]
 # deal(deck1, hand_list1, 0, 5)
 # print(hand_list1)
 # hand1 = [1, 14, 27, 40]
 #
-# print(hand_ID(hand1))
+# print(hand_id(hand1))
 # print(four_of_a_kind_check(hand1))
 
 
-start_game(1)
-print("Done")
+start_game(5)
 
+print("Done")
