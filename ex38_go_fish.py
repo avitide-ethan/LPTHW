@@ -97,23 +97,9 @@ def turn(game_deck, player_list, hand_list, current_player):
         card_looking = str(input("What card are you looking for?\n>"))
         player_looking = int(input("Who are you trying to steal it from?\n>"))
         if card_value_check(hand_list[player_looking], card_looking):  # if they have the card
-            print("You just got SNIPED for a {}".format(card_looking))
-            print("Therefore have the following cards: {}"
-                  .format(card_index_value_convert(card_looking, False)))  # you have these card indices in your hand
-            for potential_card_index in card_index_value_convert(card_looking, False):  # remove from hand
-                if potential_card_index in hand_list[player_looking]:
-                    found_card = potential_card_index
-                    hand_list[player_looking].remove(found_card)
-                    hand_list[current_player].append(found_card)
-                    print(hand_list)
-                    break
-                else:
-                    continue
+            card_steal(hand_list, current_player, player_looking, card_looking)
             if four_of_a_kind_check(hand_list[current_player]):
                 pass
-                # print("before replacing hand_list[current player], the hand is: {}".format(hand_list[current_player]))
-                # hand_list[current_player] = four_of_a_kind_check(hand_list[current_player])
-                # print("AFTER replacing hand_list[current player], the hand is: {}".format(hand_list[current_player]))
             else:
                 pass
         else:  # GO FISH
@@ -127,6 +113,22 @@ def turn(game_deck, player_list, hand_list, current_player):
             z = 2
             # draw a card from the game deck
     print("Player {}, your hand is: {}".format(current_player, hand_list[current_player]))
+
+
+def card_steal(hand_list, current_player, player_looking, card_looking):
+    print("You just got SNIPED for a {}".format(card_looking))
+    print("Therefore have the following cards: {}"
+          .format(card_index_value_convert(card_looking, False)))  # you have these card indices in your hand
+    for potential_card_index in card_index_value_convert(card_looking, False):  # remove from hand
+        if potential_card_index in hand_list[player_looking]:
+            found_card = potential_card_index
+            hand_list[player_looking].remove(found_card)
+            hand_list[current_player].append(found_card)
+            print(hand_list)
+            break
+        else:
+            continue
+    return hand_list
 
 
 def go_fish(game_deck, hand_list, current_player):
@@ -183,7 +185,8 @@ def four_of_a_kind_check(cardlist):
 global_deck, global_player_list, global_hand_list = start_game(5)
 # print(global_deck)
 # # print(global_player_list)
-# global_deck = [0, 4, 5, 12, 14, 17, 18, 20, 22, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 40, 42, 43, 44, 45, 47, 48, 49]
+# global_deck = [0, 4, 5, 12, 14, 17, 18, 20, 22, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 40, 42, 43, 44,
+#   45, 47, 48, 49]
 # global_hand_list = [[1], [15, 28, 41, 2], [25, 30, 20, 42, 34], [2, 26, 23, 50, 35], [43, 4, 8, 40, 22]]
 
 turn(global_deck, global_player_list, global_hand_list, 0)
