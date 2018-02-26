@@ -99,8 +99,8 @@ def turn(game_deck, player_list, hand_list, current_player):
         if card_value_check(hand_list[player_looking], card_looking):  # if they have the card
             print("You just got SNIPED for a {}".format(card_looking))
             print("Therefore have the following cards: {}"
-                  .format(card_index_value_convert(card_looking, False)))
-            for potential_card_index in card_index_value_convert(card_looking, False): # remove potential card index from their hand
+                  .format(card_index_value_convert(card_looking, False)))  # you have these card indices in your hand
+            for potential_card_index in card_index_value_convert(card_looking, False):  # remove from hand
                 if potential_card_index in hand_list[player_looking]:
                     found_card = potential_card_index
                     hand_list[player_looking].remove(found_card)
@@ -116,31 +116,35 @@ def turn(game_deck, player_list, hand_list, current_player):
                 # print("AFTER replacing hand_list[current player], the hand is: {}".format(hand_list[current_player]))
             else:
                 pass
-        else:
+        else:  # GO FISH
             print("Nope, they don't have that card. Go fish!")
             input("> ")
-            new_card = random.sample(game_deck, 1)[0]
-            game_deck.remove(new_card)
-            hand_list[current_player].append(new_card)
-            print(f"You drew a {card_id(new_card)}")
-            print(four_of_a_kind_check(hand_list[current_player]))
+            go_fish(game_deck, hand_list, current_player)
             if four_of_a_kind_check(hand_list[current_player]):
                 pass
-            else: 
+            else:
                 pass
             z = 2
             # draw a card from the game deck
     print("Player {}, your hand is: {}".format(current_player, hand_list[current_player]))
 
 
+def go_fish(game_deck, hand_list, current_player):
+    new_card = random.sample(game_deck, 1)[0]
+    game_deck.remove(new_card)
+    hand_list[current_player].append(new_card)
+    print(f"You drew a {card_id(new_card)}")
+    return hand_list
+
+
 def four_of_a_kind_check(cardlist):
     """check if a cardlist has four of a kind"""
     card_value_list = []
     for item in cardlist:   # determine card values for cards in cardlist and put into card_value_list
-        card_value_list.append(card_index_value_convert(item, True)) # convert index to value
+        card_value_list.append(card_index_value_convert(item, True))  # convert index to value
     counter = collections.Counter(card_value_list)  # count occurrences of each key
     for key in counter.keys():
-        if counter[key] == 4: # key is the value that appears 4 times
+        if counter[key] == 4:  # key is the value that appears 4 times
             four_card_list = card_index_value_convert(key, False)
             print("Bitch, you got four {}'s!!".format(key))
             for card in four_card_list:
@@ -178,9 +182,9 @@ def four_of_a_kind_check(cardlist):
 
 global_deck, global_player_list, global_hand_list = start_game(5)
 # print(global_deck)
-# print(global_player_list)
-global_deck = [0, 4, 5, 12, 14, 17, 18, 20, 22, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 40, 42, 43, 44, 45, 47, 48, 49]
-global_hand_list = [[1], [15, 28, 41, 2], [25, 30, 20, 42, 34], [2, 26, 23, 50, 35], [43, 4, 8, 40, 22]]
+# # print(global_player_list)
+# global_deck = [0, 4, 5, 12, 14, 17, 18, 20, 22, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 40, 42, 43, 44, 45, 47, 48, 49]
+# global_hand_list = [[1], [15, 28, 41, 2], [25, 30, 20, 42, 34], [2, 26, 23, 50, 35], [43, 4, 8, 40, 22]]
 
 turn(global_deck, global_player_list, global_hand_list, 0)
 
