@@ -78,7 +78,10 @@ def turn(game_deck, player_list, hand_list, current_player, score_list):
     if false, deal 1 card from deck check deck to see if no cards left. """
     z = 1
     while z == 1:
-        print(hand_list)
+        if len(game_deck) == 0:
+            break
+            # TODO: check if the player has no cards. if so, deal five cards into it.
+        # print(hand_list)
         print("Player {}, your hand is: {}".format(current_player, hand_id(hand_list[current_player])))
         card_looking = str(input("What card are you looking for?\n>"))
         player_looking = int(input("Who are you trying to steal it from?\n>"))
@@ -87,11 +90,12 @@ def turn(game_deck, player_list, hand_list, current_player, score_list):
             four_of_a_kind_check(hand_list[current_player], score_list, current_player)
         else:  # GO FISH
             input("Nope, they don't have that card. Go fish!\n> ")
-            new_card = random.sample(game_deck, 1)[0]  # TODO:if they fished  and got card_looking, they go again
+            new_card = random.sample(game_deck, 1)[0]  # TODO:if they fished and got card_looking, they go again
             go_fish(game_deck, hand_list, current_player, new_card)
             four_of_a_kind_check(hand_list[current_player], score_list, current_player)
             z = 2
     print("Player {}, your hand is: {}".format(current_player, hand_id(hand_list[current_player])))
+    return game_deck
 
 
 def card_steal(hand_list, current_player, player_looking, card_looking):
@@ -129,11 +133,10 @@ def four_of_a_kind_check(cardlist, score_list, current_player):
             print("Damn son, you got four {}'s!!".format(key))
             for card in four_card_list:
                 cardlist.remove(card)
-            print("Done removing cards")
-            print(cardlist)
-            print(score_list)
+            print("Done removing cards from your hand.")
+            # print(cardlist)
+            print("The score is now: {}".format(score_list))
             score_list[current_player] += 1
-            print(f"tempscore is {tempscore}")
             return cardlist, score_list
         else:
             pass
@@ -164,10 +167,12 @@ participants = int(input("So. You want to play Go Fish. Interesting.\nHow many p
 global_deck, global_player_list, global_hand_list, global_score_list = start_game(participants)
 # print(global_deck)
 # print(global_player_list)
-print(global_score_list)
-global_deck = [0, 4, 5, 12, 14, 17, 18, 20, 22, 26, 27, 28, 29, 30, 31, 32, 34, 35, 36, 40, 42, 43, 44, 45, 47, 48, 49]
-global_hand_list = [[1], [15, 28, 41, 2], [25, 30, 20, 42, 34], [2, 26, 23, 50, 35], [43, 4, 8, 40, 22]]
-
-turn(global_deck, global_player_list, global_hand_list, 0, global_score_list)
-
-print("Done")
+# print(global_score_list)
+# global_deck = [48, 49]
+# global_hand_list = [[15, 28, 41, 1], [2], [25, 30, 20, 42, 34], [2, 26, 23, 50, 35], [43, 4, 8, 40, 22]]
+while len(global_deck) > 0:
+    for participant in range(participants):
+        global_deck = turn(global_deck, global_player_list, global_hand_list, participant, global_score_list)
+print("\n\nGame over! The score list is:", end = " ")
+for participant in range(participants):
+    print(f"\n{global_player_list[participant]} score: {global_score_list[participant]}")
