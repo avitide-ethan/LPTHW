@@ -1,4 +1,4 @@
-import myStuff
+from LPTHW import myStuff
 
 myStuffDict = {'apple': "I am APPLES!"}
 # print(mystuff['apple'])
