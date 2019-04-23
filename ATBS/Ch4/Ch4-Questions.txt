@@ -1,0 +1,24 @@
+1. Brackets indicate a list
+2. spam[2] = 'hello'
+3. spam[int(33/11)] = spam[3] = 'd'
+4. 'd'
+5. ['a', 'b']
+6. 1
+7. [3.14, 'cat', 11, 'cat', True, 99]
+8. [3.14, 11, 'cat', True].
+9.  List concatenation:
+    list = list + list
+    list += list
+    .append() (only appends one value)
+    Slicing with addition will allow you to add stuff inside a list
+    List replication
+    list *= 1
+    list * 1
+10. .append(item) appends, insert(location, item)
+11. del list[index] or list.remove(item)
+12. ordered sequence of values. they can be indexed, sliced, looped over
+13. tuples are immutable while lists are mutable
+14. (42,)
+15. tuple(list) or tuple(list[startindex:stopindex])
+list(tuple)
+16. references to lists

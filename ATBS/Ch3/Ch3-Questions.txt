@@ -1,0 +1,19 @@
+1. Functions help break down code into logical groups.
+2. Function needs to be defined, then it can be called to execute it.
+3. def statement creates the function. Typing the function name in code calls it.
+4. A function call is an instance of a function that runs in a local scope.
+Once the function call returns, the local scope is deleted.
+5. One global scope, but multiple local scopes (infinite)
+6. Variables in a local scope disappear when the function call returns.
+7. Return value is the variable or variables that the function call sends back to the main function when the function is called.
+Can a return value be part of ane xpression (?) ??? # TODO
+
+8. None
+9. Call the variable name with global before it
+10. Class NoneType (?)
+11. This imports a module areallyourpetsnamederic
+12. import spam
+spam.bacon() # this will call the function bacon in spam module.
+13. Use exceptions if you expect certain errors to occur.
+14. Put things that might have an error in the try clause.
+Put what you want to happen if that error occurs in the except clause.
